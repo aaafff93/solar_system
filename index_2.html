@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body> 
+  <canvas id='canvas' width="1000" height="800" style="border: 1px solid red"></canvas>
+    <script>
+        var canvas = document.getElementById("canvas"),
+        context = canvas.getContext("2d");
+        function buildPlanet(x,y,R,color)
+        { 
+            this.x=x
+            this.y=y
+            this.R = R
+            this.color=color
+        }
+        var planets=[]
+
+        var planet=new buildPlanet(0,0,20,"Yellow")
+        planets.push(planet)
+
+	var planet=new buildPlanet(-30,-40,3,"Brown")
+        planets.push(planet)
+
+	var planet=new buildPlanet(0,70,5,"Green")
+        planets.push(planet)
+
+	var planet=new buildPlanet(-20,90,7,"Blue")
+        planets.push(planet)
+
+	var planet=new buildPlanet(30,-110,6,"Red")
+        planets.push(planet)
+
+	var planet=new buildPlanet(-80,-150,15,"Wheat")
+        planets.push(planet)
+
+	var planet=new buildPlanet(-10,200,12,"BurlyWood")
+        planets.push(planet)
+	
+	var planet=new buildPlanet(300,-200,10,"PaleTurquoise")
+        planets.push(planet)
+
+	var planet=new buildPlanet(-300,200,9,"SteelBlue")
+        planets.push(planet)
+
+        context.translate(canvas.width/2, canvas.height/2)
+
+        function planets_draw()
+        {	
+            context.transform(
+                Math.cos(Math.PI/6), 
+                Math.sin(Math.PI/6), 
+		-1 * Math.sin(Math.PI/6),
+                Math.cos(Math.PI/6), 0, 0);
+	    context.clearRect(-499,-399,canvas.width,canvas.height)
+            for (var i=0;i<planets.length;i++)
+            { 
+		context.beginPath();
+		context.arc(planets[i].x, planets[i].y, planets[i].R, 0, Math.PI * 2);
+	        context.fillStyle = planets[i].color;
+	        context.fill()
+                context.stroke();
+              
+            } 
+	//context.clearRect(0,0,canvas.width,canvas.height)
+		
+        }
+        var tId=setInterval(planets_draw, 200)
+        setTimeout(()=>{clearInterval(tId)}, 10000)
+    </script>
+</body>
+</html>
